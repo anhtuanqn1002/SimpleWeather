@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class SWModel;
 @interface SWTableViewCell : UITableViewCell
-
+- (void)setDateWithModel:(SWModel *)model andSection:(NSInteger)section;
 @end

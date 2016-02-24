@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWAppDelegate.h"
 
 @interface SWModel : NSObject
 
+@property (nonatomic, assign) WEATHER_STATE state;
+@property (nonatomic, strong) NSDate *time;
+@property (nonatomic, assign) NSInteger temperature;
+@property (nonatomic, assign) NSInteger minTemperature;
+@property (nonatomic, assign) NSInteger maxTemperature;
+
+- (instancetype)initWithModel:(SWModel *)model;
 @end

@@ -7,9 +7,22 @@
 //
 
 #import "SWViewController.h"
+#import "SWTableViewCell.h"
+#import "SWModel.h"
+#import "SWAppDelegate.h"
 
-@interface SWViewController ()
+@interface SWViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *firstView;
+@property (strong, nonatomic) IBOutlet UITableView *secondView;
+@property (weak, nonatomic) IBOutlet UILabel *location;
+@property (weak, nonatomic) IBOutlet UILabel *temperature;
+@property (weak, nonatomic) IBOutlet UILabel *status;
+@property (weak, nonatomic) IBOutlet UILabel *dailyTeperature;
+@property (weak, nonatomic) IBOutlet UIImageView *statusImage;
 
+@property (nonatomic, strong) NSMutableArray *hourlyForecast;
+@property (nonatomic, strong) NSMutableArray *dailyForecast;
 @end
 
 @implementation SWViewController
@@ -27,12 +40,81 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.hourlyForecast = [NSMutableArray new];
+    self.dailyForecast  = [NSMutableArray new];
+    
+    for (NSInteger i = 0; i < 7; i++) {
+        SWModel *model = [[SWModel alloc] init];
+        [self.hourlyForecast addObject:model];
+        [self.dailyForecast addObject:model];
+    }
+    
+    [self setupData];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    self.firstView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.scrollView addSubview:self.firstView];
+    self.secondView.frame = CGRectMake(0, self.firstView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+    [self.scrollView addSubview:self.secondView];
+    self.scrollView.contentSize = CGSizeMake(0, self.firstView.frame.size.height + self.secondView.frame.size.height);
+    self.scrollView.pagingEnabled = YES;
+    [self.scrollView flashScrollIndicators];
+//    self.scrollView.delaysContentTouches = YES;
+//    self.scrollView.canCancelContentTouches = NO;
+    [self.secondView registerNib:[UINib nibWithNibName:@"SWTableViewCell" bundle:nil] forCellReuseIdentifier:@"SWTableViewCell"];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setupData {
+    self.location.text = @"New York";
+    self.status.text = @"Rain";
+    self.statusImage.image = [UIImage imageNamed:@"weather-rain.png"];
+    self.temperature.text = @"32°";
+    self.dailyTeperature.text = @"50°/32°";
 }
+
+#pragma mark - Tableview datasource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return [self.hourlyForecast count];
+    } else {
+        return [self.dailyForecast count];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SWTableViewCell" forIndexPath:indexPath];
+    if (indexPath.section == 0) {
+        [cell setDateWithModel:[self.hourlyForecast objectAtIndex:indexPath.row] andSection:0];
+    } else {
+        [cell setDateWithModel:[self.dailyForecast objectAtIndex:indexPath.row] andSection:1];
+    }
+    return cell;
+}
+
+#pragma mark - Tableview delegate
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Hourly Forecast";
+    } else {
+        return @"Daily Forecast";
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 60;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
+    v.backgroundView.backgroundColor = [UIColor clearColor];
+    [v.textLabel setTextColor:[UIColor whiteColor]];
+}
+
 
 @end
