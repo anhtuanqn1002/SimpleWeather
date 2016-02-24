@@ -17,12 +17,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [self.window makeKeyAndVisible];
-    
     SWViewController *swViewController = [[SWViewController alloc] init];
     [self.window addSubview:swViewController.view];
     
-    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							

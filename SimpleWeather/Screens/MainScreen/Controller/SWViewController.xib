@@ -9,7 +9,6 @@
                 <outlet property="dailyTeperature" destination="haZ-gQ-yvl" id="LJ2-TB-oI5"/>
                 <outlet property="firstView" destination="xf1-o1-bv1" id="3gK-T2-frO"/>
                 <outlet property="location" destination="hVJ-n6-PUf" id="khw-SL-t2Q"/>
-                <outlet property="scrollView" destination="Qla-rZ-HST" id="FI3-co-ydi"/>
                 <outlet property="secondView" destination="cPm-1g-YwD" id="Tc2-xt-Ds9"/>
                 <outlet property="status" destination="Pig-wu-gh9" id="gQK-UZ-nHm"/>
                 <outlet property="statusImage" destination="76b-H6-8dd" id="p0w-Gu-Hx7"/>
@@ -22,32 +21,28 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qla-rZ-HST">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cPm-1g-YwD">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </scrollView>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="KWs-JD-BOG"/>
+                        <outlet property="delegate" destination="-1" id="MIH-Yp-sEF"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Qla-rZ-HST" secondAttribute="trailing" id="0nb-qm-Dmh"/>
-                <constraint firstItem="Qla-rZ-HST" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8E4-WP-nfg"/>
-                <constraint firstAttribute="bottom" secondItem="Qla-rZ-HST" secondAttribute="bottom" id="eSE-U0-5Sz"/>
-                <constraint firstItem="Qla-rZ-HST" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="p7Z-Gj-q9N"/>
+                <constraint firstItem="cPm-1g-YwD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1Av-A1-qur"/>
+                <constraint firstItem="cPm-1g-YwD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Akg-Ms-KO0"/>
+                <constraint firstAttribute="bottom" secondItem="cPm-1g-YwD" secondAttribute="bottom" id="RDj-Iu-CUS"/>
+                <constraint firstAttribute="trailing" secondItem="cPm-1g-YwD" secondAttribute="trailing" id="hg6-R3-6EX"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="cPm-1g-YwD">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <connections>
-                <outlet property="dataSource" destination="-1" id="KWs-JD-BOG"/>
-                <outlet property="delegate" destination="-1" id="MIH-Yp-sEF"/>
-            </connections>
-        </tableView>
         <view contentMode="scaleToFill" id="xf1-o1-bv1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

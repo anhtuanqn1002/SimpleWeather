@@ -11,8 +11,7 @@
 #import "SWModel.h"
 #import "SWAppDelegate.h"
 
-@interface SWViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@interface SWViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *firstView;
 @property (strong, nonatomic) IBOutlet UITableView *secondView;
 @property (weak, nonatomic) IBOutlet UILabel *location;
@@ -50,18 +49,17 @@
     }
     
     [self setupData];
+    [self.secondView registerNib:[UINib nibWithNibName:@"SWTableViewCell" bundle:nil] forCellReuseIdentifier:@"SWTableViewCell"];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     self.firstView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [self.scrollView addSubview:self.firstView];
+    self.secondView.tableHeaderView = self.firstView;
     self.secondView.frame = CGRectMake(0, self.firstView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-    [self.scrollView addSubview:self.secondView];
-    self.scrollView.contentSize = CGSizeMake(0, self.firstView.frame.size.height + self.secondView.frame.size.height);
-    self.scrollView.pagingEnabled = YES;
-    [self.scrollView flashScrollIndicators];
-//    self.scrollView.delaysContentTouches = YES;
-//    self.scrollView.canCancelContentTouches = NO;
-    [self.secondView registerNib:[UINib nibWithNibName:@"SWTableViewCell" bundle:nil] forCellReuseIdentifier:@"SWTableViewCell"];
+
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)setupData {
@@ -79,11 +77,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return [self.hourlyForecast count];
-    } else {
-        return [self.dailyForecast count];
-    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -107,7 +101,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
+    return 44;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -115,6 +109,5 @@
     v.backgroundView.backgroundColor = [UIColor clearColor];
     [v.textLabel setTextColor:[UIColor whiteColor]];
 }
-
 
 @end
