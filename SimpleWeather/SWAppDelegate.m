@@ -18,7 +18,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     SWViewController *swViewController = [[SWViewController alloc] init];
-    [self.window addSubview:swViewController.view];
+//    [self.window addSubview:swViewController.view];
+    self.window.rootViewController = swViewController;
     
     [self.window makeKeyAndVisible];
     return YES;
